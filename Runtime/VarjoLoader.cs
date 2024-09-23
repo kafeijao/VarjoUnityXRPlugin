@@ -4,7 +4,9 @@ using System.IO;
 
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+#if ENABLE_AR
 using UnityEngine.XR.ARSubsystems;
+#endif
 using UnityEngine.XR;
 using UnityEngine.XR.Management;
 using UnityEngine;
@@ -143,20 +145,27 @@ namespace Varjo.XR
     {
         private static List<XRDisplaySubsystemDescriptor> s_DisplaySubsystemDescriptors =
             new List<XRDisplaySubsystemDescriptor>();
+        #if ENABLE_AR
         private static List<XROcclusionSubsystemDescriptor> s_OcclusionSubsystemDescriptors =
             new List<XROcclusionSubsystemDescriptor>();
+        #endif
         private static List<XRInputSubsystemDescriptor> s_InputSubsystemDescriptors =
             new List<XRInputSubsystemDescriptor>();
+        #if ENABLE_AR
         private static List<XRSessionSubsystemDescriptor> s_SessionSubsystemDescriptors =
             new List<XRSessionSubsystemDescriptor>();
         private static List<XRCameraSubsystemDescriptor> s_CameraSubsystemDescriptors =
             new List<XRCameraSubsystemDescriptor>();
+        #endif
 
         public XRDisplaySubsystem displaySubsystem => GetLoadedSubsystem<XRDisplaySubsystem>();
         public XRInputSubsystem inputSubsystem => GetLoadedSubsystem<XRInputSubsystem>();
+
+        #if ENABLE_AR
         public XRSessionSubsystem sessionSubsystem => GetLoadedSubsystem<XRSessionSubsystem>();
         public XRCameraSubsystem cameraSubsystem => GetLoadedSubsystem<XRCameraSubsystem>();
         public XROcclusionSubsystem occlusionSubsystem => GetLoadedSubsystem<XROcclusionSubsystem>();
+        #endif
 
         public override bool Initialize()
         {
@@ -213,9 +222,11 @@ namespace Varjo.XR
 
             CreateSubsystem<XRDisplaySubsystemDescriptor, XRDisplaySubsystem>(s_DisplaySubsystemDescriptors, "VarjoDisplay");
             CreateSubsystem<XRInputSubsystemDescriptor, XRInputSubsystem>(s_InputSubsystemDescriptors, "VarjoInput");
+            #if ENABLE_AR
             CreateSubsystem<XRSessionSubsystemDescriptor, XRSessionSubsystem>(s_SessionSubsystemDescriptors, VarjoSessionSubsystem.VarjoSessionID);
             CreateSubsystem<XRCameraSubsystemDescriptor, XRCameraSubsystem>(s_CameraSubsystemDescriptors, VarjoCameraSubsystem.VarjoCameraID);
             CreateSubsystem<XROcclusionSubsystemDescriptor, XROcclusionSubsystem>(s_OcclusionSubsystemDescriptors, VarjoOcclusionSubsystem.VarjoOcclusionID);
+            #endif
             return VarjoError.CheckError();
         }
 
@@ -223,7 +234,9 @@ namespace Varjo.XR
         {
             StartSubsystem<XRDisplaySubsystem>();
             StartSubsystem<XRInputSubsystem>();
+            #if ENABLE_AR
             StartSubsystem<XRSessionSubsystem>();
+            #endif
             return true;
         }
 
@@ -231,7 +244,9 @@ namespace Varjo.XR
         {
             StopSubsystem<XRInputSubsystem>();
             StopSubsystem<XRDisplaySubsystem>();
+            #if ENABLE_AR
             StopSubsystem<XRSessionSubsystem>();
+            #endif
             return true;
         }
 
@@ -239,7 +254,9 @@ namespace Varjo.XR
         {
             DestroySubsystem<XRInputSubsystem>();
             DestroySubsystem<XRDisplaySubsystem>();
+            #if ENABLE_AR
             DestroySubsystem<XRSessionSubsystem>();
+            #endif
 
             ShutdownPluginInstance();
 

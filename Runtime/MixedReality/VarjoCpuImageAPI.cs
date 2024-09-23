@@ -4,13 +4,16 @@ using System.Collections.Generic;
 
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
+#if ENABLE_AR
 using UnityEngine.XR.ARSubsystems;
+#endif
 using Unity.Collections;
 
 using XRCpuImageHandle = System.Int32;
 
+#if ENABLE_AR
 using static UnityEngine.XR.ARSubsystems.XRCpuImage;
-
+#endif
 
 namespace Varjo.XR
 {
@@ -26,6 +29,7 @@ namespace Varjo.XR
 
     public partial class VarjoCameraSubsystem
     {
+#if ENABLE_AR
         /// <summary>
         /// An API of XRCpuImage
         /// </summary>
@@ -298,5 +302,7 @@ namespace Varjo.XR
                 }
             }
         }
+
+#endif
     }
 }

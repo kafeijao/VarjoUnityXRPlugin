@@ -1,3 +1,4 @@
+#if ENABLE_AR
 using System;
 using System.Runtime.InteropServices;
 using UnityEngine.XR;
@@ -56,3 +57,4 @@ namespace Varjo.XR
         }
     }
 }
+#endif

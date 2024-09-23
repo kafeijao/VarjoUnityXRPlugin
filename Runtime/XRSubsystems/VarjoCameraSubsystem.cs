@@ -1,3 +1,4 @@
+#if ENABLE_AR
 using System;
 using System.Collections.Generic;
 
@@ -475,3 +476,4 @@ namespace Varjo.XR
         }
     }
 }
+#endif
